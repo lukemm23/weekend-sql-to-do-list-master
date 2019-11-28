@@ -31,19 +31,19 @@ router.post('/', (req, res) => {
 });
 
 
-// router.delete('/:id', (req, res) => {
-//     console.log(req.params.id);
-//     const songId = req.params.id;
-//     const queryString = `DELETE FROM "songs" WHERE "id" = ${songId};`;
+router.delete('/:id', (req, res) => {
+    console.log(req.params.id);
+    const todoId = req.params.id;
+    const queryString = `DELETE FROM "todos" WHERE "id" = ${todoId};`;
 
-//     pool.query(queryString)
-//         .then((response) => {
-//             res.sendStatus(200);
-//         })
-//         .catch((err) => {
-//             res.sendStatus(500);
-//         })
-// });
+    pool.query(queryString)
+        .then((response) => {
+            res.sendStatus(200);
+        })
+        .catch((err) => {
+            res.sendStatus(500);
+        })
+});
 
 /*
     $.ajax({

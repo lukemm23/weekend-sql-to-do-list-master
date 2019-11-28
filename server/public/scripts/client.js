@@ -5,6 +5,7 @@ function init() {
     console.log('JQ');
     getList();
     $('#js-btn-save').on('click', saveTodo);
+    $('#js-list').on('click', '#js-btn-delete', deleteTodo);
 
 };
 
@@ -46,13 +47,27 @@ function postTodo(newTodo) {
     })
 }
 
+function deleteTodo() {
+    const idNumber = $(this).data('id');
+
+    $.ajax({
+        method: "DELETE",
+        url: '/api/todos/' + idNumber 
+    })
+    .then((response) => {
+        getList();
+    })
+    .catch((response) => {
+        console.warn(response);
+    })
+}
+
 function render(list) {
     $('#js-list').empty();
     for(let item of list) {
         console.log(item);
         $('#js-list').append(`
         <tr>
-        <td>${item.id}</td>
         <td>${item.description}</td>
         <td>${item.status}</td>
         <td>${item.date}</td>
@@ -60,7 +75,7 @@ function render(list) {
           <button class="btn btn-success">
             <i class="fas fa-angle-double-right"></i> Complete
           </button>
-          <button class="btn btn-danger">
+          <button id="js-btn-delete" class="btn btn-danger"  data-id="${item.id}">
             <i class="fas fa-angle-double-right"></i> Delete
           </button>
         </td>
