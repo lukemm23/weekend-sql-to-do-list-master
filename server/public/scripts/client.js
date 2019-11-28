@@ -26,12 +26,12 @@ function getList() {
         method: "GET",
         url: "/api/todos"
     })
-    .then((response) => {
-        render(response);
-    })
-    .catch((err) => {
-        console.warn(err);
-    })
+        .then((response) => {
+            render(response);
+        })
+        .catch((err) => {
+            console.warn(err);
+        })
 };
 
 function postTodo(newTodo) {
@@ -40,12 +40,12 @@ function postTodo(newTodo) {
         url: "/api/todos",
         data: newTodo
     })
-    .then((response) => {
-        getList();
-    })
-    .catch((err) => {
-        console.warn(err);
-    })
+        .then((response) => {
+            getList();
+        })
+        .catch((err) => {
+            console.warn(err);
+        })
 }
 
 function deleteTodo() {
@@ -53,38 +53,39 @@ function deleteTodo() {
 
     $.ajax({
         method: "DELETE",
-        url: '/api/todos/' + idNumber 
+        url: '/api/todos/' + idNumber
     })
-    .then((response) => {
-        getList();
-    })
-    .catch((response) => {
-        console.warn(response);
-    })
+        .then((response) => {
+            confirm();
+            getList();
+        })
+        .catch((response) => {
+            console.warn(response);
+        })
 }
 
 function updateTodo(status, id) {
     $.ajax({
         method: 'PUT',
         url: '/api/todos/' + id,
-        data:  {
+        data: {
             status: status
         }
     })
-    .then((response) => {
-        console.log('PUT');
-        getList();
-    })
-    .catch((err) => {
-        console.warn(err);
-    })
+        .then((response) => {
+            console.log('PUT');
+            getList();
+        })
+        .catch((err) => {
+            console.warn(err);
+        })
 }
 
 
 function done() {
     console.log('done');
     updateTodo('done', $(this).data('id'));
-    
+
 }
 
 function notDone() {
@@ -94,7 +95,7 @@ function notDone() {
 
 function render(list) {
     $('#js-list').empty();
-    for(let item of list) {
+    for (let item of list) {
         console.log(item);
         $('#js-list').append(`
         <tr id="tr">
@@ -122,4 +123,7 @@ function clearInput() {
     $('#js-date').val('');
 }
 
-   
+function confirm() {
+    alert('Todo Deleted!');
+}
+
