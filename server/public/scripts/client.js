@@ -6,7 +6,8 @@ function init() {
     getList();
     $('#js-btn-save').on('click', saveTodo);
     $('#js-list').on('click', '#js-btn-delete', deleteTodo);
-
+    $('#js-list').on('click', '#js-btn-done', done);
+    $('#js-list').on('click', '#js-btn-notdone', notDone);
 };
 
 function saveTodo(event) {
@@ -62,18 +63,50 @@ function deleteTodo() {
     })
 }
 
+function updateTodo(status, id) {
+    $.ajax({
+        method: 'PUT',
+        url: '/api/todos/' + id,
+        data:  {
+            status: status
+        }
+    })
+    .then((response) => {
+        console.log('PUT');
+        getList();
+    })
+    .catch((err) => {
+        console.warn(err);
+    })
+}
+
+
+function done() {
+    console.log('done');
+    updateTodo('done', $(this).data('id'));
+    
+}
+
+function notDone() {
+    console.log('not done');
+    updateTodo('not done', $(this).data('id'));
+}
+
 function render(list) {
     $('#js-list').empty();
     for(let item of list) {
         console.log(item);
         $('#js-list').append(`
-        <tr>
+        <tr id="tr">
         <td>${item.description}</td>
         <td>${item.status}</td>
         <td>${item.date}</td>
         <td>
-          <button class="btn btn-success">
+          <button id="js-btn-done" class="btn btn-success" data-id="${item.id}">
             <i class="fas fa-angle-double-right"></i> Complete
+          </button>
+          <button id="js-btn-notdone" class="btn btn-warning" data-id="${item.id}">
+            <i class="fas fa-angle-double-right"></i> Incomplete
           </button>
           <button id="js-btn-delete" class="btn btn-danger"  data-id="${item.id}">
             <i class="fas fa-angle-double-right"></i> Delete
@@ -85,7 +118,8 @@ function render(list) {
 }
 
 function clearInput() {
-    $('.form-control').val('');
+    $('#js-desc').val('');
+    $('#js-date').val('');
 }
 
    

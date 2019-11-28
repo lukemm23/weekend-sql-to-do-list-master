@@ -45,40 +45,28 @@ router.delete('/:id', (req, res) => {
         })
 });
 
-/*
-    $.ajax({
-        method: 'PUT',
-        url: '/api/songs/' + $(this).data('id')
-        data:  {
-            direction: "up"
-        }
-    })
-*/
-// router.put('/:id', (req, res) => {
-    // req.params.id = What entry do you want to update?
-    // req.body.whatever = The data you want to update.
-    // const id = req.params.id;
-    // const direction = req.body.direction;
-    // let updateVote = `upvote + 1`;
+router.put('/:id', (req, res) => {
+    const id = req.params.id;
+    const status = req.body.status;
+    console.log(status, id);
+    let update;
 
-    // if (direction === "up") {
-    //     updateVote = `upvote + 1`;
-    // } else {
-    //     updateVote = `upvote - 1`;
-    // }
+    if (status == "done") {
+        update = `done`;
+    } else {
+        update = `not done`;
+    }
 
-    // let queryString = `UPDATE "songs" SET "upvote"=${updateVote} WHERE "id" = $1;`;
+    let queryString = `UPDATE "todos" SET "status"='${update}' WHERE "id" = $1;`;
 
-    // The value in the array is providing the value for $1 above.
-
-//     pool.query(queryString, [id])
-//         .then((response) => {
-//             res.sendStatus(200);
-//         })
-//         .catch((err) => {
-//             console.log(err);
-//             res.sendStatus(500);
-//         })
-// });
+    pool.query(queryString, [id])
+        .then((response) => {
+            res.sendStatus(200);
+        })
+        .catch((err) => {
+            console.log(err);
+            res.sendStatus(500);
+        })
+});
 
 module.exports = router;
