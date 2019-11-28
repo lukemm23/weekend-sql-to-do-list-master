@@ -13,26 +13,23 @@ router.get('/', (req, res) => {
         });
 });
 
-// router.post('/', (req, res) => {
-//     const newSong = req.body;
-//     console.log(newSong);
+router.post('/', (req, res) => {
+    const newTodo = req.body;
+    console.log(newTodo);
 
-//     const queryString = `INSERT INTO "songs" (artist, rank, track, published) VALUES
-//     ('${newSong.artist}', '${newSong.rank}', '${newSong.track}', '${newSong.published}');`;
+    const queryString = `INSERT INTO "todos" (description,status, date) VALUES
+    ('${newTodo.description}', '${newTodo.status}', '${newTodo.date}');`;
 
-//     pool.query(queryString)
-//         .then((response) => {
-//             res.sendStatus(201);
-//         })
-//         .catch((err) => {
-//             console.log(err);
-//             res.sendStatus(500);
-//         });
-// });
+    pool.query(queryString)
+        .then((response) => {
+            res.sendStatus(201);
+        })
+        .catch((err) => {
+            console.log(err);
+            res.sendStatus(500);
+        });
+});
 
-// Client side, it looks like this -> /api/songs/5
-// Server side, it receives it like this -> /api/songs/:id
-// But now we have a variable, req.params.id = 5
 
 // router.delete('/:id', (req, res) => {
 //     console.log(req.params.id);

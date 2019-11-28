@@ -8,7 +8,6 @@
         integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
         integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/style.css">
     <script type="text/javascript" src="vendors/jquery.min.js"></script>
     <script type="text/javascript" src="scripts/client.js"></script>
     <title>Todolist</title>
@@ -56,7 +55,7 @@
                       <th></th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <tbody id="js-list">
                     <tr>
                       <td>1</td>
                       <td>Walk the dog</td>
@@ -87,19 +86,17 @@
           </button>
         </div>
         <div class="modal-body">
-          <form>
             <div class="form-group">
               <label for="title">Description</label>
-              <input type="text" class="form-control" placeholder="Add Description">
+              <input id="js-desc" type="text" class="form-control" placeholder="Add Description">
             </div>
             <div class="form-group">
               <label for="body">Date</label>
-              <input type="date" name="Date" class="form-control"></input>
+              <input id="js-date" type="date" name="Date" class="form-control"></input>
             </div>
-          </form>
         </div>
         <div class="modal-footer">
-          <button class="btn btn-primary" data-dismiss="modal">Save Changes</button>
+          <button id="js-btn-save" class="btn btn-primary" data-dismiss="modal">Save Changes</button>
         </div>
       </div>
     </div>
